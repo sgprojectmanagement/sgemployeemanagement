@@ -166,7 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -215,6 +214,22 @@
     <Compile Include="Models\SectionRoleMap.cs" />
     <Compile Include="Models\SiteSections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\EmployeeProfileRepository.cs" />
+    <Compile Include="Repository\EmployeeProjectMapRepository.cs" />
+    <Compile Include="Repository\EmployeeRoleMapRepository.cs" />
+    <Compile Include="Repository\EmployeeSecurityRepository.cs" />
+    <Compile Include="Repository\ProjectsRepository.cs" />
+    <Compile Include="Repository\RolesRepository.cs" />
+    <Compile Include="Repository\SectionRoleMapRepository.cs" />
+    <Compile Include="Repository\SiteSectionRepository.cs" />
+    <Compile Include="unitOfWork\EmployeeProfileUnitOfWork.cs" />
+    <Compile Include="unitOfWork\EmployeeProjectMapUnitOfWork.cs" />
+    <Compile Include="unitOfWork\EmployeeRoleMapUnitOfWork.cs" />
+    <Compile Include="unitOfWork\EmployeeSecurityUnitOfWork.cs" />
+    <Compile Include="unitOfWork\ProjectsUnitOfWork.cs" />
+    <Compile Include="unitOfWork\RolesUnitOfWork.cs" />
+    <Compile Include="unitOfWork\SectionRoleMapUnitOfWork.cs" />
+    <Compile Include="unitOfWork\SiteSectionUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
