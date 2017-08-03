@@ -15,7 +15,7 @@ namespace sgprojectmanagement.Repository
         private string _tableName;
         private IMongoCollection<EmployeeProjectMap> _collection;
         //private MongoCollectionSettings settings;
-        public EmployeeProjectMapRepository(MongoDatabaseBase db, string tblName)
+        public EmployeeProjectMapRepository(IMongoDatabase db, string tblName)
         {
             _database = db;
             _tableName = tblName;

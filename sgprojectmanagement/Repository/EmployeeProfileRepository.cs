@@ -16,12 +16,11 @@ namespace sgprojectmanagement.Repository
         private string _tableName;
         private IMongoCollection<EmployeeProfile> _collection;
         //private MongoCollectionSettings settings;
-        public EmployeeProfileRepository(MongoDatabaseBase db, string tblName)
+        public EmployeeProfileRepository(IMongoDatabase db, string tblName)
         {
             _database = db;
             _tableName = tblName;
             _collection = _database.GetCollection<EmployeeProfile>(_tableName);
-            //_database.GetCollection<T>(tblName);
         }
         public async Task<EmployeeProfile> Get(string id)
         {
