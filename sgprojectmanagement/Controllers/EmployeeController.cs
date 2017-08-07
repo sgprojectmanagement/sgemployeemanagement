@@ -7,60 +7,87 @@ using sgprojectmanagement.Services;
 using sgprojectmanagement.Models;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using System.Web.Http;
 
 namespace sgprojectmanagement.Controllers
 {
-   
-    public class EmployeeController : ApiController
+    public class EmployeeController : Controller
     {
-        IService<EmployeeProfile> service;
+        private readonly IemployeeProfile _employeeService;
 
         public EmployeeController()
         {
-            service = new Service<EmployeeProfile>();
+            _employeeService = new EmployeeProfileService();
         }
+        public ActionResult Index()
+        {
+            ViewBag.Title = "Home Page";
 
-        [System.Web.Mvc.HttpGet]
-        [System.Web.Mvc.Route("api/Employee")]
-        public Task<IEnumerable<EmployeeProfile>> Get()
-        {
-            return service.GetAll();
+            return View();
         }
-        [System.Web.Mvc.HttpGet]
-        [System.Web.Mvc.Route("api/Employee/Get/{id:string}")]
-        public Task<EmployeeProfile> Get(string id)
+        public string Get(string id)
         {
-            var filter = Builders<EmployeeProfile>.Filter.Eq("EmployeeId", id);
-            var employee = service.Get(filter);
-            return employee;
+            var EmployeeProfile = _employeeService.Get(id);
+            //if (EmployeeProfile != null)
+            //{
+               
+            //}
+            return JsonConvert.SerializeObject(EmployeeProfile);
+            //else
+            //{
+            //    return HttpContext.Response;
+            //}
         }
+        //public string Add(string value)
+        //{
+        //    var EmployeeProfile = _employeeService.Insert( new EmployeeProfile() { })
+        //    //if (EmployeeProfile != null)
+        //    //{
 
-        [System.Web.Mvc.HttpPost]
-        [System.Web.Mvc.Route("api/Employee/Insert")]
-        public void Post([System.Web.Http.FromBody]EmployeeProfile e)
-        {
-            service.Add(e);
-        }
-        [System.Web.Mvc.HttpPut]
-        [System.Web.Mvc.Route("api/Employee/Update/{id:string}")]
-        public void Put(string id, [System.Web.Http.FromBody]EmployeeProfile p)
-        {
-            var filter = Builders<EmployeeProfile>.Filter.Eq(s => s.EmployeeId, id);
-            var update = Builders<EmployeeProfile>.Update
-                                .Set(s => s.FirstName, p.FirstName);
+        //    //}
+        //    return JsonConvert.SerializeObject(EmployeeProfile);
+        //    //else
+        //    //{
+        //    //    return HttpContext.Response;
+        //    //}
+        //}
+        //public string Get(string id)
+        //{
+        //    var EmployeeProfile = _employeeService.Get(id);
+        //    //if (EmployeeProfile != null)
+        //    //{
 
-            service.Update(filter, update);
-        }
+        //    //}
+        //    return JsonConvert.SerializeObject(EmployeeProfile);
+        //    //else
+        //    //{
+        //    //    return HttpContext.Response;
+        //    //}
+        //}
+        //public string Get(string id)
+        //{
+        //    var EmployeeProfile = _employeeService.Get(id);
+        //    //if (EmployeeProfile != null)
+        //    //{
 
-        [System.Web.Mvc.HttpDelete]
-        public void Delete(string id)
-        {
-            var filter = Builders<EmployeeProfile>.Filter.Eq("EmployeeId", id);
-            service.Delete(filter);
-        }
+        //    //}
+        //    return JsonConvert.SerializeObject(EmployeeProfile);
+        //    //else
+        //    //{
+        //    //    return HttpContext.Response;
+        //    //}
+        //}
+        //public string Get(string id)
+        //{
+        //    var EmployeeProfile = _employeeService.Get(id);
+        //    //if (EmployeeProfile != null)
+        //    //{
+
+        //    //}
+        //    return JsonConvert.SerializeObject(EmployeeProfile);
+        //    //else
+        //    //{
+        //    //    return HttpContext.Response;
+        //    //}
+        //}
     }
 }
-

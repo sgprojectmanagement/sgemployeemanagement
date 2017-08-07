@@ -9,30 +9,30 @@ using sgprojectmanagement.Models;
 
 namespace sgprojectmanagement.Repository
 {
-    public class EmployeeProfileRepository
+    public class EmployeeProjectMapRepository
     {
-
         private IMongoDatabase _database;
         private string _tableName;
-        private IMongoCollection<EmployeeProfile> _collection;
+        private IMongoCollection<EmployeeProjectMap> _collection;
         //private MongoCollectionSettings settings;
-        public EmployeeProfileRepository(IMongoDatabase db, string tblName)
+        public EmployeeProjectMapRepository(IMongoDatabase db, string tblName)
         {
             _database = db;
             _tableName = tblName;
-            _collection = _database.GetCollection<EmployeeProfile>(_tableName);
+            _collection = _database.GetCollection<EmployeeProjectMap>(_tableName);
+            //_database.GetCollection<T>(tblName);
         }
-        public async Task<EmployeeProfile> Get(string id)
+        public async Task<EmployeeProjectMap> Get(string id)
         {
-            var filter = Builders<EmployeeProfile>.Filter.Eq("EmployeeId", id);
-            return await _collection.Find<EmployeeProfile>(filter).FirstOrDefaultAsync();
+            var filter = Builders<EmployeeProjectMap>.Filter.Eq("EmployeeId", id);
+            return await _collection.Find<EmployeeProjectMap>(filter).FirstOrDefaultAsync();
         }
 
         ///<summary>  
         /// Get all records   
         ///</summary>  
         ///<returns></returns>  
-        public async Task<IEnumerable<EmployeeProfile>> GetAll()
+        public async Task<IEnumerable<EmployeeProjectMap>> GetAll()
         {
             return await _collection.Find(_ => true).ToListAsync();
         }
@@ -41,7 +41,7 @@ namespace sgprojectmanagement.Repository
         /// Generic add method to insert enities to collection   
         ///</summary>  
         ///<param name="entity"></param>  
-        public async void Add(EmployeeProfile entity)
+        public async void Add(EmployeeProjectMap entity)
         {
             await _collection.InsertOneAsync(entity);
         }
@@ -51,16 +51,16 @@ namespace sgprojectmanagement.Repository
         ///<param name="id"></param>  
         public async void Delete(string id)
         {
-            var filter = Builders<EmployeeProfile>.Filter.Eq("EmployeeId", id);
+            var filter = Builders<EmployeeProjectMap>.Filter.Eq("EmployeeId", id);
             await _collection.DeleteOneAsync(filter);
         }
 
-        public async void Update(string id,string firstName)
+        public async void Update(string id, string firstName)
         {
-            var filter = Builders<EmployeeProfile>.Filter.Eq(s => s.EmployeeId, id);
-            var update = Builders<EmployeeProfile>.Update
-                                .Set(s => s.FirstName, firstName);
-             await _collection.UpdateOneAsync(filter, update);
+            var filter = Builders<EmployeeProjectMap>.Filter.Eq(s => s.EmployeeId, id);
+            var update = Builders<EmployeeProjectMap>.Update
+                                .Set(s => s.ProjectId, firstName);
+            await _collection.UpdateOneAsync(filter, update);
         }
     }
 }

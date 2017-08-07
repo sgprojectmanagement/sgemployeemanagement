@@ -9,12 +9,12 @@ using System.Configuration;
 
 namespace sgprojectmanagement.unitOfWork
 {
-    public class UnitOfWork<TEntity> where TEntity:class
+    public class EmployeeProfileUnitOfWork
     {
         private IMongoDatabase _database;
-        protected Repository<TEntity> _EmployeeProfile;
+        protected EmployeeProfileRepository _EmployeeProfile;
 
-        public UnitOfWork()
+        public EmployeeProfileUnitOfWork()
         {
             var connectionString = ConfigurationManager.AppSettings["MongoDBConectionString"];
             var client = new MongoClient(connectionString);
@@ -22,12 +22,12 @@ namespace sgprojectmanagement.unitOfWork
             _database = client.GetDatabase(databaseName);
         }
 
-        public Repository<TEntity> Access
+        public EmployeeProfileRepository EmployeeProfile
         {
             get
             {
                 if (_EmployeeProfile == null)
-                    _EmployeeProfile = new Repository.Repository<TEntity>(_database, "EmployeeProfile");
+                _EmployeeProfile = new EmployeeProfileRepository(_database, "EmployeeProfile");
                 return _EmployeeProfile;
             }
         }
