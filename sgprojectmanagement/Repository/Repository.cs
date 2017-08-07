@@ -1,44 +1,55 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace sgprojectmanagement.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity: class
+    public class Repository<TEntity>
     {
+
         private IMongoDatabase _database;
         private string _tableName;
         private IMongoCollection<TEntity> _collection;
+
 
         public Repository(IMongoDatabase db, string tblName)
         {
             _database = db;
             _tableName = tblName;
-            _collection = _database.GetCollection<TEntity>(_tableName);
+            _collection = _database.GetCollection<TEntity>(tblName);
+        }
+        public async Task<TEntity> Get(FilterDefinition<TEntity> filter)
+        {
+
+            return await _collection.Find<TEntity>(filter).FirstOrDefaultAsync();
         }
 
-        public void Add(TEntity T)
+
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            _collection.InsertOneAsync(T);
-        }
-        public Task<TEntity> Get(string filter)
-        {
-            return _collection.Find(filter).FirstOrDefaultAsync();
+            var some= _collection.Find(_ => true).ToListAsync();
+            return await some;
         }
 
-        public IEnumerable<TEntity> GetAll()
+
+        public async void Add(TEntity entity)
         {
-            return _collection.Find(_ => true).ToEnumerable<TEntity>();
+            await _collection.InsertOneAsync(entity);
         }
-        public void Remove(string filter)
+
+        public async void Delete(FilterDefinition<TEntity> filter)
         {
-            _collection.DeleteOneAsync(filter);
+
+            await _collection.DeleteOneAsync(filter);
         }
-        public void FindAndUpdate(Expression<Func<TEntity, bool>> predicate,UpdateDefinition<TEntity> update, FindOneAndUpdateOptions<TEntity> options)
+
+        public async void Update(FilterDefinition<TEntity> filter, UpdateDefinition<TEntity> update)
         {
-            _collection.FindOneAndUpdate(predicate, update, options);
+            await _collection.UpdateOneAsync(filter, update);
         }
     }
 }
+

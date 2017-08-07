@@ -9,14 +9,14 @@ using sgprojectmanagement.Models;
 
 namespace sgprojectmanagement.Repository
 {
-    public class EmployeeProfileRepository
+    public class Repository
     {
 
         private IMongoDatabase _database;
         private string _tableName;
         private IMongoCollection<EmployeeProfile> _collection;
         //private MongoCollectionSettings settings;
-        public EmployeeProfileRepository(IMongoDatabase db, string tblName)
+        public Repository(IMongoDatabase db, string tblName)
         {
             _database = db;
             _tableName = tblName;

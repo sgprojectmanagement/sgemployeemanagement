@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using sgprojectmanagement.Models;
 using MongoDB.Driver;
 
-namespace sgprojectmanagement.Repository
+namespace sgprojectmanagement.Services
 {
-    interface IRepository<TEntity> where TEntity:class
+    interface IService<TEntity> where TEntity:class
     {
         void Add(TEntity entity);
         void Delete(FilterDefinition<TEntity> filter);
